@@ -15,6 +15,7 @@ brew install libgcrypt
 - [ ] Be able to search git history for secrets
 - [ ] Allow to change threshold of algorithm
 - [ ] Should work with big files (~4 GB)
+- [ ] Support for multiple arguments (-f ... -f ...)
 
 ## Decide?
 
