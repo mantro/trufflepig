@@ -4,6 +4,8 @@ const os = require('os');
 const shannon = require('./lib/shannon.js');
 const strings = require('./lib/strings');
 
+const colors = require('colors/safe');
+
 const scanGit = require('./lib/git').scanGit;
 
 const program = require('commander');
@@ -19,6 +21,21 @@ program.parse(process.argv);
 
 const stack = [];
 
+async function scanLineWithCharset(line, word, charset, threshold) {
+
+  let stringSet = strings.stringsOfSet(word, charset, 14);
+
+  for (let str of stringSet) {
+
+    const entropy = shannon.shannon(str, charset);
+    if (entropy > threshold) {
+
+      const output = line.replace(word, colors.green(word));
+      console.log(output, colors.red(entropy));
+    }
+
+  }
+}
 
 async function scanFile(filename) {
 
@@ -26,35 +43,28 @@ async function scanFile(filename) {
     throw new Error(`"${filename}" is not a file`);
   }
 
-  const lines = fs.readFileSync(filename, 'UTF8').split(os.EOL);
-  for(let line of lines) {
+  const lines = fs
+    .readFileSync(filename, 'UTF8')
+    .split(os.EOL);
+
+  for (let line of lines) {
 
     line = line.trim();
     let words = line.split(/[ |\t]/);
 
-    if (words == null) continue;
+    if (words == null)
+      { continue; }
 
-    for(let word of words) {
+    for (let word of words) {
 
-      let stringSet = strings.stringsOfSet(word, shannon.FULL_SET, 20  );
-
-      for(let str of stringSet) {
-
-        const entropy = shannon.shannonFull(str);
-        if (entropy > 4.5) {
-
-          console.log(word, entropy);
-        }
-
-      }
-
+      await scanLineWithCharset(line, word, shannon.FULL_SET, 4.5);
+      await scanLineWithCharset(line, word, shannon.HEX_CHARS, 3);
+      await scanLineWithCharset(line, word, shannon.BASE64_CHARS, 4);
     }
   }
 }
 
-async function scanPath(pathname) {
-
-}
+async function scanPath(pathname) {}
 
 async function main() {
 
@@ -70,8 +80,6 @@ async function main() {
     await scanGit(program.git);
   }
 }
-
-
 
 main().then(() => {
   console.log('Finished');
