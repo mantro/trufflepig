@@ -59,7 +59,7 @@ async function scanFile(filename) {
 
       await scanLineWithCharset('(full)', line, word, shannon.FULL_SET, 4.5);
       await scanLineWithCharset('(hex)', line, word, shannon.HEX_CHARS, 3);
-      await scanLineWithCharset('(base64)', line, word, shannon.BASE64_CHARS, 3.6);
+      await scanLineWithCharset('(base64)', line, word, shannon.BASE64_CHARS, 4);
     }
   }
 }

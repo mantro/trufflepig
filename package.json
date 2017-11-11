@@ -4,7 +4,8 @@
   "description": "Search for passwords in the git history",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest",
+    "samples": "for line in $(find samples -type f); do echo \"\n########> $line\n\"; node index.js -f $line; done"
   },
   "repository": {
     "type": "git",
