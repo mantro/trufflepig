@@ -76,7 +76,7 @@ describe('shannonHex', () => {
 
         const entropy = shannonHex(sample);
     });
-})
+});
 
 describe('shannonBase64', () => {
 
@@ -85,5 +85,5 @@ describe('shannonBase64', () => {
         const sample = 'this is a sample string';
 
         const entropy = shannonBase64(sample);
-    })
-})
+    });
+});
