@@ -10,12 +10,15 @@ const scanGit = require('./lib/git').scanGit;
 
 const program = require('commander');
 
+let wordLength = 12;
+
 program
   .version('0.0.1')
   .option('-p, --path <path>', 'Add one path to the heystack')
   .option('-g, --git <path>', 'Add one git repository to the haystack')
   .option('-G, --guid', 'Enable GUID detection')
-  .option('-f, --file <file>', 'Add one file to the haystack');
+  .option('-f, --file <file>', 'Add one file to the haystack')
+  .option('-l, --length <length>', 'Modify minimum word length (default 12)');
 
 program.parse(process.argv);
 
@@ -23,7 +26,7 @@ const stack = [];
 
 async function scanLineWithCharset(prefix, line, word, charset, threshold) {
 
-  let stringSet = strings.stringsOfSet(word, charset, 12);
+  let stringSet = strings.stringsOfSet(word, charset, wordLength);
 
   for (let str of stringSet) {
 
@@ -67,6 +70,11 @@ async function scanFile(filename) {
 async function scanPath(pathname) {}
 
 async function main() {
+
+  if (program.length) {
+    wordLength = +program.length;
+    console.log('minimum word length set to ' + program.length);
+  }
 
   if (program.file) {
     await scanFile(program.file);
