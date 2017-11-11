@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const shannon = require('./lib/shannon.js');
+const strings = require('./lib/strings');
 
 
 const program = require('commander');
@@ -32,11 +33,10 @@ async function scanFile(filename) {
 
     if (words == null) continue;
 
-    console.log(line, shannon.shannonBase64(line));
-
     for(let word of words) {
 
-      // ...
+      let derp = strings.stringsOfSet(word, shannon.BASE64_CHARS);
+      console.log(derp);
 
     }
   }
