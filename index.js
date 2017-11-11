@@ -29,14 +29,23 @@ async function scanFile(filename) {
   for(let line of lines) {
 
     line = line.trim();
-    let words = line.match(/\S+/g);
+    let words = line.split(/[ |\t]/);
 
     if (words == null) continue;
 
     for(let word of words) {
 
-      let derp = strings.stringsOfSet(word, shannon.BASE64_CHARS);
-      console.log(derp);
+      let stringSet = strings.stringsOfSet(word, shannon.FULL_SET, 20  );
+
+      for(let str of stringSet) {
+
+        const entropy = shannon.shannonFull(str);
+        if (entropy > 4.5) {
+
+          console.log(word, entropy);
+        }
+
+      }
 
     }
   }
