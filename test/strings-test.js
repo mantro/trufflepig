@@ -2,8 +2,8 @@ const assert = require('assert');
 
 var stringsOfSet = require('../lib/strings').stringsOfSet;
 
-const BASE64_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-const HEX_CHARS = '1234567890abcdefABCDEF';
+const BASE64_CHARS = require('../lib/consts').BASE64_CHARS;
+const HEX_CHARS = require('../lib/consts').HEX_CHARS;
 
 describe('strings', () => {
   describe('stringsOfSet', () => {

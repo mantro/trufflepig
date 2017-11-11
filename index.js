@@ -4,13 +4,14 @@ const os = require('os');
 const shannon = require('./lib/shannon.js');
 const strings = require('./lib/strings');
 
+const scanGit = require('./lib/git').scanGit;
 
 const program = require('commander');
 
 program
   .version('0.0.1')
   .option('-p, --path <path>', 'Add one path to the heystack')
-  .option('-g, --git', 'Add one git repository to the haystack')
+  .option('-g, --git <path>', 'Add one git repository to the haystack')
   .option('-G, --guid', 'Enable GUID detection')
   .option('-f, --file <file>', 'Add one file to the haystack');
 
@@ -63,6 +64,10 @@ async function main() {
 
   if (program.path) {
     await scanPath(program.path);
+  }
+
+  if (program.git) {
+    await scanGit(program.git);
   }
 }
 
