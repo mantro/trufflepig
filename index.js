@@ -82,7 +82,7 @@ async function main() {
 }
 
 main().then(() => {
-  console.log('Finished');
+  // intentionally left blank
 }).catch((err) => {
   console.log(err);
 });
