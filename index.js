@@ -21,9 +21,9 @@ program.parse(process.argv);
 
 const stack = [];
 
-async function scanLineWithCharset(line, word, charset, threshold) {
+async function scanLineWithCharset(prefix, line, word, charset, threshold) {
 
-  let stringSet = strings.stringsOfSet(word, charset, 14);
+  let stringSet = strings.stringsOfSet(word, charset, 12);
 
   for (let str of stringSet) {
 
@@ -31,7 +31,7 @@ async function scanLineWithCharset(line, word, charset, threshold) {
     if (entropy > threshold) {
 
       const output = line.replace(word, colors.green(word));
-      console.log(output, colors.red(entropy));
+      console.log(colors.red(prefix), output, colors.red(entropy));
     }
 
   }
@@ -57,9 +57,9 @@ async function scanFile(filename) {
 
     for (let word of words) {
 
-      await scanLineWithCharset(line, word, shannon.FULL_SET, 4.5);
-      await scanLineWithCharset(line, word, shannon.HEX_CHARS, 3);
-      await scanLineWithCharset(line, word, shannon.BASE64_CHARS, 4);
+      await scanLineWithCharset('(full)', line, word, shannon.FULL_SET, 4.5);
+      await scanLineWithCharset('(hex)', line, word, shannon.HEX_CHARS, 3);
+      await scanLineWithCharset('(base64)', line, word, shannon.BASE64_CHARS, 3.6);
     }
   }
 }
