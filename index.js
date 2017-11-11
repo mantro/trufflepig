@@ -26,7 +26,19 @@ async function scanFile(filename) {
 
   const lines = fs.readFileSync(filename, 'UTF8').split(os.EOL);
   for(let line of lines) {
-    console.log(line, shannon.shannon(line));
+
+    line = line.trim();
+    let words = line.match(/\S+/g);
+
+    if (words == null) continue;
+
+    console.log(line, shannon.shannonBase64(line));
+
+    for(let word of words) {
+
+      // ...
+
+    }
   }
 }
 
