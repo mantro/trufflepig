@@ -1,5 +1,11 @@
 # TrufflePig
 
+# MacOS dependencies
+
+```
+brew install libgcrypt
+```
+
 ## Todo
 
 - [ ] Implement and test shannon algorithm
