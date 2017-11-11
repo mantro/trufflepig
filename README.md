@@ -8,7 +8,7 @@ brew install libgcrypt
 
 ## Todo
 
-- [ ] Implement and test shannon algorithm
+- [x] Implement and test shannon algorithm
 - [ ] Implement good & self-explanatory CLI interface
 - [ ] Be able to search one file for secrets
 - [ ] Be able to search a set of files for secrets (extended glob)
