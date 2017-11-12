@@ -1,0 +1,1 @@
+$cfg['blowfish_secret'] = 'c.:41m058%$)!(§"sd19'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */

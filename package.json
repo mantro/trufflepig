@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/jest",
-    "samples": "for line in $(find samples -type f); do echo \"\n########> $line\n\"; node index.js -f $line; done"
+    "samples": "for line in $(find samples/positive -type f); do echo \"\n########> $line\n\"; node index.js -f $line; done",
+    "evaluate": "node index.js -a -f samples/evaluate.txt"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "commander": "^2.11.0",
+    "minimatch": "^3.0.4",
     "nodegit": "^0.20.3"
   }
 }
