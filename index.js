@@ -13,8 +13,8 @@ program
   .version('0.0.1')
   .usage('[options] <path ...>')
   .option('-a, --all', 'Show scores word by word')
-  .option('-G, --guid', 'Enable GUID detection')
   .option('-l, --length <length>', 'Modify minimum word length (default 12)')
+  .option('-f, --full', 'Enable full charset detection (increases false positives)')
   .option('--threshold-full <threshold>', 'set threshold for full charset (default 4.5)')
   .option('--threshold-base64 <threshold>', 'set threshold for base64 charset (default 4.0)')
   .option('--threshold-hex <threshold>', 'set threshold for hex charset (default 3.0)');
@@ -27,15 +27,18 @@ async function main() {
 
   if (program.all) {
     options.showWordByWord = true;
-    console.log('showing scores for every word')
+    console.log(colors.gray('(ENABLED: showing scores for every word)'));
+  }
+
+  if (program.full) {
+    options.fullEnabled = true;
+    console.log(colors.gray('(ENABLED: full character set enabled (will inrease false positives))'));
   }
 
   if (program.length) {
     options.wordLength = +program.length;
-    console.log('minimum word length set to ' + program.length);
+    console.log(colors.gray('(MODIFIED: minimum word length set to ' + program.length + ')'));
   }
-
-  console.log();
 
   if (program.args.length == 0) {
     program.outputHelp();

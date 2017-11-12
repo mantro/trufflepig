@@ -18,6 +18,7 @@ brew install libgcrypt
 - [x] Ability to change minimum word length
 - [x] Should work with big files (~4 GB)
 - [x] Implement colors
+- [x] Add binary file detection
 
 ## Decide?
 
