@@ -40,6 +40,8 @@ async function main() {
     console.log('minimum word length set to ' + program.length);
   }
 
+  console.log();
+
   if (program.file) {
     await scanFile(program.file);
   }
@@ -56,5 +58,5 @@ async function main() {
 main().then(() => {
   // intentionally left blank
 }).catch((err) => {
-  console.log(err);
+  console.error(err);
 });
