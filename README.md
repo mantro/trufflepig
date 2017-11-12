@@ -1,5 +1,20 @@
 # TrufflePig
 
+Search for secrets using the Shannon-Entropy in files, paths or local git repositories.
+
+## Examples
+
+```
+#> node index --help
+
+#> node index ~/path/to/local/git/repo
+
+#> node index lib/*.js
+
+#> node index file1.txt some/path and/a/git/repo anotherFile.txt
+
+```
+
 # MacOS dependencies
 
 ```
