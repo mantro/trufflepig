@@ -1,24 +1,19 @@
 const path = require('path');
-
-const strings = require('./lib/strings');
-
 const colors = require('colors/safe');
+const program = require('commander');
 
+const fileutils = require('./lib/fileutils');
+const strings = require('./lib/strings');
 const scanGit = require('./lib/scanGit');
 const scanFile = require('./lib/scanFile');
 const scanPath = require('./lib/scanPath');
-
-const program = require('commander');
-
 const options = require('./lib/options');
 
 program
   .version('0.0.1')
+  .usage('[options] <path ...>')
   .option('-a, --all', 'Show scores word by word')
-  .option('-p, --path <path>', 'Add one path to the heystack')
-  .option('-g, --git <path>', 'Add one git repository to the haystack')
   .option('-G, --guid', 'Enable GUID detection')
-  .option('-f, --file <file>', 'Add one file to the haystack')
   .option('-l, --length <length>', 'Modify minimum word length (default 12)')
   .option('--threshold-full <threshold>', 'set threshold for full charset (default 4.5)')
   .option('--threshold-base64 <threshold>', 'set threshold for base64 charset (default 4.0)')
@@ -42,16 +37,27 @@ async function main() {
 
   console.log();
 
-  if (program.file) {
-    await scanFile(program.file);
+  if (program.args.length == 0) {
+    program.outputHelp();
+    process.exit(1);
   }
 
-  if (program.path) {
-    await scanPath(program.path);
-  }
 
-  if (program.git) {
-    await scanGit(program.git);
+  for (var arg of program.args) {
+
+    if (fileutils.hasGitDirectory(arg)) {
+      await scanGit(arg);
+    }
+    else if (fileutils.isDirectory(arg)) {
+      await scanPath(arg);
+    }
+    else if (fileutils.isFile(arg)) {
+
+      await scanFile(arg);
+    }
+    else {
+      throw new Error('Cannot understand: ' + arg);
+    }
   }
 }
 
