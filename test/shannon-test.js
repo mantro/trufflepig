@@ -1,6 +1,4 @@
 const shannon = require('../lib/shannon').shannon;
-const shannonHex = require('../lib/shannon').shannonHex;
-const shannonBase64 = require('../lib/shannon').shannonBase64;
 
 // used http://www.shannonentropy.netmark.pl/calculate for test assertion values
 
@@ -66,24 +64,4 @@ describe('shannon', () => {
         }
     });
 
-});
-
-describe('shannonHex', () => {
-
-    it('executes', () => {
-
-        const sample = 'this is a sample string';
-
-        const entropy = shannonHex(sample);
-    });
-});
-
-describe('shannonBase64', () => {
-
-    it('executes', () => {
-
-        const sample = 'this is a sample string';
-
-        const entropy = shannonBase64(sample);
-    });
 });
