@@ -1,6 +1,8 @@
 # TrufflePig
 
-Search for secrets using the Shannon-Entropy in files, paths or local git repositories.
+Search for secrets and passwords using the Shannon-Entropy in files, paths or local git repositories.
+
+This work is based on https://github.com/dxa4481/truffleHog, adding a few options here and there to fine tune the results. Also, I was unable to do it in python, so I did a cleanroom implementation in JS.
 
 ## Examples
 
@@ -44,7 +46,7 @@ brew install libgcrypt
 - [x] Harmonize output of scanFile and scanGit
 - [x] Omit duplicates
 - [ ] Enable command line threshold specification
-- [ ] Add functionality to add ignore patterns from command line
+- [x] Add functionality to add ignore patterns from command line
 
 ## Decide?
 
