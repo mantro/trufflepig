@@ -13,7 +13,11 @@ Search for secrets using the Shannon-Entropy in files, paths or local git reposi
 
 #> node index file1.txt some/path and/a/git/repo anotherFile.txt
 
+#> node index --color path/to/big/repo | less -r
+
 ```
+
+
 
 # MacOS dependencies
 
