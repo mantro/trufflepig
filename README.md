@@ -41,6 +41,8 @@ brew install libgcrypt
 - [x] Switch to winston logging library
 - [x] Harmonize output of scanFile and scanGit
 - [x] Omit duplicates
+- [ ] Enable command line threshold specification
+- [ ] Add functionality to add ignore patterns from command line
 
 ## Decide?
 
