@@ -25,6 +25,7 @@
   "homepage": "https://github.com/mantro/trufflepig#readme",
   "devDependencies": {
     "colors": "^1.1.2",
+    "eslint": "^4.11.0",
     "jest": "^21.2.1"
   },
   "dependencies": {
