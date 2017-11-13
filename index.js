@@ -46,9 +46,6 @@ async function main() {
 
     winston.debug(colors.gray('(ignore patterns:)'));
     options.ignoreGlobs.forEach(x => winston.debug(colors.gray(x)));
-
-    process.exit(1);
-
   }
 
   if (program.git === false) {
