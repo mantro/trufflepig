@@ -48,6 +48,21 @@ async function main() {
     options.ignoreGlobs.forEach(x => winston.debug(colors.gray(x)));
   }
 
+  if (program.thresholdFull) {
+    options.fullThreshold = +program.thresholdFull;
+    winston.debug(colors.gray('(set full threshold to: ' + options.fullThreshold + ')'));
+  }
+
+  if (program.thresholdBase64) {
+    options.base64Threshold = +program.thresholdBase64;
+    winston.debug(colors.gray('(set base64 threshold to: ' + options.base64Threshold + ')'));
+  }
+
+  if (program.thresholdHex) {
+    options.hexThreshold = +program.thresholdHex;
+    winston.debug(colors.gray('(set hex threshold to: ' + options.hexThreshold + ')'));
+  }
+
   if (program.git === false) {
     options.gitEnabled = false;
     winston.debug(colors.gray('(disabled git processing)'));
