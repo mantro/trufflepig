@@ -4,7 +4,7 @@
   "description": "Search for passwords in the git history",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest",
+    "test": "node_modules/.bin/eslint *.js && node_modules/.bin/jest",
     "samples": "node index.js -v -f samples/positive/",
     "evaluate": "node index.js -v -f -a samples/evaluate.txt"
   },
