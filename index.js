@@ -18,6 +18,7 @@ program
   .option('-a, --all', 'Show scores word by word')
   .option('-f, --full', 'Enable full charset detection (increases false positives)')
   .option('-l, --length <length>', 'Modify minimum word length (default 12)')
+  .option('--no-git', 'Disable git processing')
   .option('-v, --verbose', 'Output verbose message')
   .option('--threshold-full <threshold>', 'set threshold for full charset (default 4.5)')
   .option('--threshold-base64 <threshold>', 'set threshold for base64 charset (default 4.0)')
@@ -32,6 +33,11 @@ async function main() {
   if (program.verbose) {
     winston.level = 'debug';
     winston.debug(colors.gray('(enabled verbose output)'));
+  }
+
+  if (program.git === false) {
+    options.gitEnabled = false;
+    winston.debug(colors.gray('(disabled git processing)'));
   }
 
   if (program.all) {
@@ -57,7 +63,7 @@ async function main() {
 
   for (var arg of program.args) {
 
-    if (fileutils.hasGitDirectory(arg)) {
+    if (fileutils.hasGitDirectory(arg) && options.gitEnabled  ) {
       await scanGit(arg);
     }
     else if (fileutils.isDirectory(arg)) {
@@ -77,5 +83,5 @@ async function main() {
 main().then(() => {
   // intentionally left blank
 }).catch((err) => {
-  winston.error(colors.red(err));
+  console.error(err);
 });
