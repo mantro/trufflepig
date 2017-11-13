@@ -18,6 +18,7 @@ program
   .usage('[options] <path ...>')
   .option('-a, --all', 'Show scores word by word')
   .option('-f, --full', 'Enable full charset detection (increases false positives)')
+  .option('-i, --ignore <glob>', 'Ignore the specified pattern. Specify multiple patterns seperated by comma.')
   .option('--min-word-length <length>', 'Modify minimum word length (default 12)')
   .option('--max-word-length <length>', 'Modify maximum word length (default 1000)')
   .option('--no-git', 'Disable git processing')
@@ -36,6 +37,18 @@ async function main() {
   if (program.verbose) {
     winston.level = 'debug';
     winston.debug(colors.gray('(enabled verbose output)'));
+  }
+
+  if (program.ignore) {
+
+    const arr = program.ignore.split(',');
+    options.ignoreGlobs = options.ignoreGlobs.concat(arr);
+
+    winston.debug(colors.gray('(ignore patterns:)'));
+    options.ignoreGlobs.forEach(x => winston.debug(colors.gray(x)));
+
+    process.exit(1);
+
   }
 
   if (program.git === false) {

@@ -15,6 +15,8 @@ Search for secrets using the Shannon-Entropy in files, paths or local git reposi
 
 #> node index --color path/to/big/repo | less -r
 
+#> node index -i *.xml,*.txt,*.csv path/to/something
+
 ```
 
 
