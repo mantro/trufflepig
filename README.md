@@ -40,6 +40,7 @@ brew install libgcrypt
 - [x] Add binary file detection
 - [x] Switch to winston logging library
 - [x] Harmonize output of scanFile and scanGit
+- [x] Omit duplicates
 
 ## Decide?
 

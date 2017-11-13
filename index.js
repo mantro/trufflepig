@@ -9,6 +9,7 @@ const scanGit = require('./lib/scanGit');
 const scanFile = require('./lib/scanFile');
 const scanPath = require('./lib/scanPath');
 const options = require('./lib/options');
+const hashmap = require('./lib/hashMap');
 
 winston.level = 'info';
 
@@ -19,6 +20,7 @@ program
   .option('-f, --full', 'Enable full charset detection (increases false positives)')
   .option('-l, --length <length>', 'Modify minimum word length (default 12)')
   .option('--no-git', 'Disable git processing')
+  .option('-d, --duplicates', 'Show exact line duplicates')
   .option('-v, --verbose', 'Output verbose message')
   .option('--threshold-full <threshold>', 'set threshold for full charset (default 4.5)')
   .option('--threshold-base64 <threshold>', 'set threshold for base64 charset (default 4.0)')
@@ -38,6 +40,11 @@ async function main() {
   if (program.git === false) {
     options.gitEnabled = false;
     winston.debug(colors.gray('(disabled git processing)'));
+  }
+
+  if (program.duplicates === true) {
+    options.showDuplicates = true;
+    winston.debug(colors.gray('(duplicates will be shown)'));
   }
 
   if (program.all) {
@@ -62,6 +69,8 @@ async function main() {
 
 
   for (var arg of program.args) {
+
+    hashmap.clear();
 
     if (fileutils.hasGitDirectory(arg) && options.gitEnabled  ) {
       await scanGit(arg);
