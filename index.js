@@ -18,7 +18,8 @@ program
   .usage('[options] <path ...>')
   .option('-a, --all', 'Show scores word by word')
   .option('-f, --full', 'Enable full charset detection (increases false positives)')
-  .option('-l, --length <length>', 'Modify minimum word length (default 12)')
+  .option('--min-word-length <length>', 'Modify minimum word length (default 12)')
+  .option('--max-word-length <length>', 'Modify maximum word length (default 1000)')
   .option('--no-git', 'Disable git processing')
   .option('-d, --duplicates', 'Show exact line duplicates')
   .option('-v, --verbose', 'Output verbose message')
@@ -57,9 +58,14 @@ async function main() {
     winston.debug(colors.gray('(full character set enabled (will inrease false positives))'));
   }
 
-  if (program.length) {
-    options.wordLength = +program.length;
+  if (program.minWordLength) {
+    options.minWordLength = +program.minWordLength;
     winston.debug(colors.gray('(minimum word length set to ' + program.length + ')'));
+  }
+
+  if (program.maxWordLength) {
+    options.maxWordLength = +program.maxWordLength;
+    winston.debug(colors.gray('(maximum word length set to ' + program.length + ')'));
   }
 
   if (program.args.length == 0) {
