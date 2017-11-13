@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/jest",
-    "samples": "for line in $(find samples/positive -type f); do echo \"\n########> $line\n\"; node index.js $line; done",
-    "evaluate": "node index.js -a samples/evaluate.txt"
+    "samples": "node index.js -v -f samples/positive/",
+    "evaluate": "node index.js -v -f -a samples/evaluate.txt"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "isbinaryfile": "^3.0.2",
     "minimatch": "^3.0.4",
     "nodegit": "^0.20.3",
-    "recursive-readdir": "^2.2.1"
+    "recursive-readdir": "^2.2.1",
+    "winston": "^2.4.0"
   }
 }
