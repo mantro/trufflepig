@@ -35,6 +35,7 @@ brew install libgcrypt
 - [x] Implement colors
 - [x] Add binary file detection
 - [x] Switch to winston logging library
+- [x] Harmonize output of scanFile and scanGit
 
 ## Decide?
 
