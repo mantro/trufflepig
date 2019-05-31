@@ -42,7 +42,7 @@ brew install libgcrypt
 - [x] Should work with big files (~4 GB)
 - [x] Implement colors
 - [x] Add binary file detection
-- [x] Switch to winston logging library
+- [x] Switch to console logging library
 - [x] Harmonize output of scanFile and scanGit
 - [x] Omit duplicates
 - [x] Enable command line threshold specification

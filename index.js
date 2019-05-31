@@ -1,17 +1,12 @@
-const path = require('path');
 const colors = require('colors/safe');
 const program = require('commander');
-const winston = require('winston');
 
 const fileutils = require('./lib/fileutils');
-const strings = require('./lib/strings');
 const scanGit = require('./lib/scanGit');
 const scanFile = require('./lib/scanFile');
 const scanPath = require('./lib/scanPath');
 const options = require('./lib/options');
 const hashmap = require('./lib/hashMap');
-
-winston.level = 'info';
 
 program
   .version('0.0.1')
@@ -23,74 +18,66 @@ program
   .option('--max-word-length <length>', 'Modify maximum word length (default 1000)')
   .option('--no-git', 'Disable git processing')
   .option('-d, --duplicates', 'Show exact line duplicates')
-  .option('-v, --verbose', 'Output verbose message')
   .option('--threshold-full <threshold>', 'set threshold for full charset (default 4.5)')
   .option('--threshold-base64 <threshold>', 'set threshold for base64 charset (default 4.0)')
   .option('--threshold-hex <threshold>', 'set threshold for hex charset (default 3.0)');
 
 program.parse(process.argv);
 
-const stack = [];
-
 async function main() {
-
-  if (program.verbose) {
-    winston.level = 'debug';
-    winston.debug(colors.gray('(enabled verbose output)'));
-  }
 
   if (program.ignore) {
 
     const arr = program.ignore.split(',');
     options.ignoreGlobs = options.ignoreGlobs.concat(arr);
 
-    winston.debug(colors.gray('(ignore patterns:)'));
-    options.ignoreGlobs.forEach(x => winston.debug(colors.gray(x)));
+    console.debug(colors.gray('(ignore patterns:)'));
+    options.ignoreGlobs.forEach(x => console.debug(colors.gray(x)));
   }
 
   if (program.thresholdFull) {
     options.fullThreshold = +program.thresholdFull;
-    winston.debug(colors.gray('(set full threshold to: ' + options.fullThreshold + ')'));
+    console.debug(colors.gray('(set full threshold to: ' + options.fullThreshold + ')'));
   }
 
   if (program.thresholdBase64) {
     options.base64Threshold = +program.thresholdBase64;
-    winston.debug(colors.gray('(set base64 threshold to: ' + options.base64Threshold + ')'));
+    console.debug(colors.gray('(set base64 threshold to: ' + options.base64Threshold + ')'));
   }
 
   if (program.thresholdHex) {
     options.hexThreshold = +program.thresholdHex;
-    winston.debug(colors.gray('(set hex threshold to: ' + options.hexThreshold + ')'));
+    console.debug(colors.gray('(set hex threshold to: ' + options.hexThreshold + ')'));
   }
 
   if (program.git === false) {
     options.gitEnabled = false;
-    winston.debug(colors.gray('(disabled git processing)'));
+    console.debug(colors.gray('(disabled git processing)'));
   }
 
   if (program.duplicates === true) {
     options.showDuplicates = true;
-    winston.debug(colors.gray('(duplicates will be shown)'));
+    console.debug(colors.gray('(duplicates will be shown)'));
   }
 
   if (program.all) {
     options.showWordByWord = true;
-    winston.debug(colors.gray('(showing scores for every word)'));
+    console.debug(colors.gray('(showing scores for every word)'));
   }
 
   if (program.full) {
     options.fullEnabled = true;
-    winston.debug(colors.gray('(full character set enabled (will inrease false positives))'));
+    console.debug(colors.gray('(full character set enabled (will inrease false positives))'));
   }
 
   if (program.minWordLength) {
     options.minWordLength = +program.minWordLength;
-    winston.debug(colors.gray('(minimum word length set to ' + program.length + ')'));
+    console.debug(colors.gray('(minimum word length set to ' + program.length + ')'));
   }
 
   if (program.maxWordLength) {
     options.maxWordLength = +program.maxWordLength;
-    winston.debug(colors.gray('(maximum word length set to ' + program.length + ')'));
+    console.debug(colors.gray('(maximum word length set to ' + program.length + ')'));
   }
 
   if (program.args.length == 0) {
@@ -103,7 +90,7 @@ async function main() {
 
     hashmap.clear();
 
-    if (fileutils.hasGitDirectory(arg) && options.gitEnabled  ) {
+    if (fileutils.hasGitDirectory(arg) && options.gitEnabled) {
       await scanGit(arg);
     }
     else if (fileutils.isDirectory(arg)) {
@@ -114,7 +101,7 @@ async function main() {
       await scanFile(arg);
     }
     else {
-      winston.error(colors.gray('No such file or directory: ') + colors.red(arg));
+      console.error(colors.gray('No such file or directory: ') + colors.red(arg));
       process.exit(1);
     }
   }
