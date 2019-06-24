@@ -33,7 +33,6 @@
     "isbinaryfile": "^4.0.0",
     "minimatch": "^3.0.4",
     "nodegit": "^0.24.3",
-    "recursive-readdir": "^2.2.2",
-    "console": "3.2.1"
+    "recursive-readdir": "^2.2.2"
   }
 }
